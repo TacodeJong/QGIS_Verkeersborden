@@ -10,7 +10,7 @@ version=0.4
 author=Taco de Jong
 email=taco@tictaco.nl
 
-about=Deze plugin laad de verkeersborden in van een gemeente.<br><br> Gemaakt op basis van <a href="https://community.openstreetmap.org/t/ndw-verkeersborden-geopackage-qgis/7594">deze</a> post door <a href="https://community.openstreetmap.org/u/peewee32">Peter</a>.<br><br>De plugin bevat intern een lijst van gemeenten en gemeentecodes.<br><br>Een gemeente is te typen in een invoerveld - vult automatisch aan.<br><br>Daarna wordt de <a href="https://www.ndw.nu">NDW</a> ge-queryd met de gemeentecode van de geselecteerde gemeente.<br><br>Na het ophalen van de verkeersborden wordt de stijl toegepast zoals Peter dat heeft gedaan in zijn geopackage. De stijl is als qml bestand opgenomen in de plugin.<br><br>De nieuwe laag is een virtuele laag.
+about=Deze plugin laad de verkeersborden in van een gemeente.<br><br> Gemaakt op basis van <a href="https://community.openstreetmap.org/t/ndw-verkeersborden-geopackage-qgis/7594">deze</a> post door <a href="https://community.openstreetmap.org/u/peewee32">Peter</a>.<br><br>De plugin doet een query bij het CBS (via PDOK) voor een actuele lijst van gemeenten met en gemeentecodes (statcodes).<br><br>Een gemeente is te typen in een invoerveld - vult automatisch aan.<br><br>Daarna wordt de <a href="https://www.ndw.nu">NDW</a> ge-queryd met de gemeentecode van de geselecteerde gemeente.<br><br>Na het ophalen van de verkeersborden wordt de stijl toegepast zoals Peter dat heeft gedaan in zijn geopackage. De stijl is als qml bestand opgenomen in de plugin.<br><br>De nieuwe laag is een virtuele laag.
 
 tracker=https://github.com/TacodeJong/QGIS_Verkeersborden/issues
 repository=https://github.com/TacodeJong/QGIS_Verkeersborden
