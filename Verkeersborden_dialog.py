@@ -24,6 +24,7 @@
 
 import os
 import csv
+import requests
 from qgis.PyQt import uic
 from qgis.PyQt import QtWidgets
 from PyQt5.QtWidgets import QFileDialog, QMessageBox, QLineEdit, QCompleter
@@ -45,16 +46,41 @@ class VerkeersbordenDialog(QtWidgets.QDialog, FORM_CLASS):
         # Setup autocomplete
         self.setupAutocomplete()  # Ensure this is called after setupUi
 
+    # def loadMunicipalities(self):
+    #     municipalities = {}
+    #     csv_path = os.path.join(os.path.dirname(__file__), 'data', 'gemeenten.csv')  # Adjust path as necessary
+        
+    #     with open(csv_path, mode='r', encoding='utf-8') as csvfile:
+    #         reader = csv.DictReader(csvfile)
+    #         for row in reader:
+    #             municipalities[row['gemeentenaam']] = row['town-code']
+        
     def loadMunicipalities(self):
+        import datetime
+        import requests
+
         municipalities = {}
-        csv_path = os.path.join(os.path.dirname(__file__), 'data', 'gemeenten.csv')  # Adjust path as necessary
+        current_year = datetime.datetime.now().year
         
-        with open(csv_path, mode='r', encoding='utf-8') as csvfile:
-            reader = csv.DictReader(csvfile)
-            for row in reader:
-                municipalities[row['gemeentenaam']] = row['town-code']
+        for year in range(current_year, current_year - 2, -1):
+            url = f"https://service.pdok.nl/cbs/gebiedsindelingen/{year}/wfs/v1_0?request=GetFeature&service=WFS&version=1.1.0&outputFormat=application%2Fjson&typeName=gebiedsindelingen%3Agemeente_gegeneraliseerd"
+
+            response = requests.get(url)
+            if response.status_code == 200:
+                data = response.json()
+                if data['features']:
+                    for feature in data['features']:
+                        statnaam = feature['properties']['statnaam']
+                        statcode = feature['properties']['statcode']
+                        municipalities[statnaam] = statcode
+                    print(f"Successfully fetched municipalities data for year {year}")
+                    return municipalities
+            
+            print(f"No data available for year {year}, trying previous year")
         
+        print("Failed to fetch municipalities data for current and previous year")
         return municipalities
+
 
     def setupAutocomplete(self):
         # Assuming self.municipalities is already populated
@@ -66,7 +92,6 @@ class VerkeersbordenDialog(QtWidgets.QDialog, FORM_CLASS):
         self.townCodeLineEdit.setCompleter(completer)
 
     def loadData(self):
-        import requests
         from qgis.core import QgsVectorLayer, QgsFeature, QgsGeometry, QgsProject, QgsField, QgsPointXY
         from PyQt5.QtCore import QVariant
 
