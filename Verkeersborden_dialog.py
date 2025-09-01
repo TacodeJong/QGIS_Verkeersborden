@@ -110,7 +110,7 @@ class VerkeersbordenDialog(QtWidgets.QDialog, FORM_CLASS):
         layer_name = self.layerNameLineEdit.text()  # Assuming you have a QLineEdit for layer name
         
         # Adjust the URL to use the town_code variable
-        url = f'https://data.ndw.nu/api/rest/static-road-data/traffic-signs/v3/current-state?town-code={town_code}&content-type=geo%2Bjson'
+        url = f'https://data.ndw.nu/api/rest/static-road-data/traffic-signs/v4/current-state?countyCode={town_code}&content-type=geo%2Bjson'
 
         response = requests.get(url)
         if response.status_code == 200:
@@ -181,4 +181,4 @@ class VerkeersbordenDialog(QtWidgets.QDialog, FORM_CLASS):
             else:
                 vl.triggerRepaint()
         else:
-            print("Failed to fetch the GeoJSON data.")
+            print("Failed to fetch the GeoJSON data. TEST")
