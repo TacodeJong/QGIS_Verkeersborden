@@ -6,7 +6,7 @@
 name=Verkeersborden
 qgisMinimumVersion=3.0
 description=Import dutch traffic signs by municipality.
-version=0.4
+version=0.5
 author=Taco de Jong
 email=taco@tictaco.nl
 
